@@ -53,11 +53,26 @@ while (!tester.Equals("q"))
 
     } else if (Convert.ToInt32(tester) == 3)
   {
-        // create posts
-        
+    // create posts
+    Console.WriteLine("Please select the blog you wish to post to: ");
+    var query = db.Blogs.OrderBy(b => b.BlogId);
 
+    foreach (var item in query)
+    {
 
+      Console.WriteLine($"{item.BlogId}) {item.Name}");
+    }
+    tester = Console.ReadLine();
         
+     foreach (var item in query)
+      {
+      if (Convert.ToInt32(tester) == item.BlogId)
+      {
+        
+      } 
+      }
+      
+
     } else if (Convert.ToInt32(tester) == 4)
     {
         // display posts
