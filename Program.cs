@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using Microsoft.IdentityModel.Tokens;
+using NLog;
 string path = Directory.GetCurrentDirectory() + "//nlog.config";
 
 // create instance of Logger
@@ -37,22 +38,30 @@ while (!tester.Equals("q"))
         //add blog
         Console.Write("Enter a name for a new Blog: ");
         var name = Console.ReadLine();
+        if (name.IsNullOrEmpty())
+        {
+          logger.Error("Blog Name cannot be null or empty");
+        }
+        else
+        {
+            var blog = new Blog { Name = name };
+            db.AddBlog(blog);
 
-        var blog = new Blog { Name = name };
-      db.AddBlog(blog);
-
-      logger.Info("Blog added - {name}", name);
+             logger.Info("Blog added - {name}", name);
+        }
+        
 
     } else if (Convert.ToInt32(tester) == 3)
-    {
+  {
         // create posts
+        
+
+
+        
     } else if (Convert.ToInt32(tester) == 4)
     {
         // display posts
     }
 }
-// Create and save a new Blog
-
-// Display all Blogs from the database
 
 logger.Info("Program ended");
