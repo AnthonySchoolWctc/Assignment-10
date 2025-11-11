@@ -33,7 +33,7 @@ namespace Assignment_10.Migrations
 
                     b.HasKey("BlogId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("Post", b =>
@@ -57,7 +57,7 @@ namespace Assignment_10.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Post", b =>
