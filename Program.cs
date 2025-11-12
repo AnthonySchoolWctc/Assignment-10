@@ -65,7 +65,7 @@ while (!tester.Equals("q"))
     }
     var id = Console.ReadLine();
     var blogidchecker = 0;
-    
+
     foreach (var item in query)
     {
       if (Convert.ToInt32(id) == item.BlogId)
@@ -90,7 +90,7 @@ while (!tester.Equals("q"))
       Console.WriteLine("Enter post content: ");
       var content = Console.ReadLine();
 
-      var post = new Post { Title = name, Content = content, BlogId = Convert.ToInt32(id)};
+      var post = new Post { Title = name, Content = content, BlogId = Convert.ToInt32(id) };
       db.AddPost(post);
 
 
@@ -106,41 +106,45 @@ while (!tester.Equals("q"))
     // display posts
     Console.WriteLine("Please select the blog you wish to see, 0 for all posts: ");
     var query = db.Blogs.OrderBy(b => b.BlogId);
-
+    var maxblogId = 0;
     foreach (var item in query)
     {
-
+      
       Console.WriteLine($"{item.BlogId}) {item.Name}");
     }
     var id = Console.ReadLine();
     if (Convert.ToInt32(id) < 0)
     {
-
+      logger.Error("Blog Id cannot be negative");
     }
     else if (Convert.ToInt32(id) == 0)
     {
-
+      var allposts = db.Posts.OrderBy(b => b.BlogId);
+      foreach (var item in allposts)
+      {
+        Console.WriteLine($"{item.Blog.Name}: {item.Title}, {item.Content}");
+      }
 
 
     }
-    else if (Convert.ToInt32(id) != 0)
+    else if (Convert.ToInt32(id) != 0 )
     {
-        var posts = db.Posts.Where(b => b.BlogId == Convert.ToInt32(id));
-    
-    foreach( var item in posts)
-    {
+      var posts = db.Posts.Where(b => b.BlogId == Convert.ToInt32(id));
+
+      foreach (var item in posts)
+      {
 
 
-      
-            Console.WriteLine($"{item.Blog.Name}: {item.Title}, {item.Content}");
-        }
 
-    
+        Console.WriteLine($"{item.Blog.Name}: {item.Title}, {item.Content}");
+      }
+
+
+    }
   }
-    }
-        else
-        {
-            
+  else
+  {
+    logger.Error("Blogid must be a valid number from the list");
         }
 
     
